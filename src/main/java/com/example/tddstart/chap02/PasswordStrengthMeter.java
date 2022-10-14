@@ -6,14 +6,22 @@ public class PasswordStrengthMeter {
 		if (s == null || s.isBlank()) {
 			return PasswordStrength.INVALID;
 		}
-		if (s.length() < 8) {
+		boolean lengthEnough = s.length() >= 8;
+		boolean containsNum = meetsContainingNumberCriteria(s);
+		boolean containsUpp = meentsContainingUppercaseCriteria(s);
+
+//		if (s.length() < 8) {
+//			return PasswordStrength.NORMAL;
+//		}
+		if (lengthEnough && !containsNum && !containsUpp) {
+			return PasswordStrength.WEAK;
+		}
+		if (!lengthEnough) {
 			return PasswordStrength.NORMAL;
 		}
-		boolean containsNum = meetsContainingNumberCriteria(s);
 		if (!containsNum) {
 			return PasswordStrength.NORMAL;
 		}
-		boolean containsUpp = meentsContainingUppercaseCriteria(s);
 		if (!containsUpp) {
 			return PasswordStrength.NORMAL;
 		}
